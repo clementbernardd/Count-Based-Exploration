@@ -7,7 +7,7 @@ from utils import *
 
 class SARSA(RLAlgorithm) :
   ''' SARSA implementation '''
-  def __init__(self, env, alpha,gamma, epsilon, beta ,n_actions = None , n_states = None ) :
+  def __init__(self, env, alpha,gamma, epsilon, beta=None ,n_actions = None , n_states = None ) :
     '''
       - env : The environment (an openai gym environment)
       - alpha : The step size between [0,1[
