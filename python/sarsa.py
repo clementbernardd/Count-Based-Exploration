@@ -4,9 +4,10 @@ import gym
 from RL_algorithm import *
 from utils import *
 
-class Q_learning(RLAlgorithm) :
-  ''' Q-learning with or without Count-based implementation '''
-  def __init__(self, env, alpha,gamma, epsilon,beta = None , n_actions = None , n_states = None ) :
+
+class SARSA(RLAlgorithm) :
+  ''' SARSA implementation '''
+  def __init__(self, env, alpha,gamma, epsilon, beta ,n_actions = None , n_states = None ) :
     '''
       - env : The environment (an openai gym environment)
       - alpha : The step size between [0,1[
@@ -24,9 +25,7 @@ class Q_learning(RLAlgorithm) :
     self.gamma = gamma
     self.epsilon = epsilon
     self.q_table = np.zeros((self.n_states, self.n_actions))
-    # The Hashing of the states
     self.hash = np.zeros((self.n_states,1))
-    # The beta hyperparameter
     self.beta = beta
 
 
@@ -40,7 +39,7 @@ class Q_learning(RLAlgorithm) :
       return np.argmax(self.q_table[state])
 
   def train(self, n_episodes = 1000, count_based = False) :
-    ''' Train the model with Q-learning algorithm '''
+    ''' Train the model with SARSA algorithm '''
     # Loop over the number of episodes
     for e in range(n_episodes) :
       # Reset the environment
@@ -50,11 +49,13 @@ class Q_learning(RLAlgorithm) :
 
       done = False
 
+      action = self.epsilon_greedy(state)
+
       while not done :
-        # Get an action with the epsilon-greedy policy
-        action = self.epsilon_greedy(state)
         # Do the action in the environment
         new_state, reward, done, info = self.env.step(action)
+
+        new_action = self.epsilon_greedy(new_state)
         if count_based :
           # Update the count based method
           self.hash[state] = self.hash[state]+1
@@ -62,16 +63,18 @@ class Q_learning(RLAlgorithm) :
           count_reward =(self.beta / np.sqrt(self.hash[state]))[0]
         else :
           count_reward = 0
-        # Get the reward with or without count-based
         new_reward = count_reward + reward
         # Update the Q-table
         self.q_table[state, action] = self.q_table[state,action] + self.alpha * \
-        (new_reward + self.gamma * np.max(self.q_table[new_state,:]) - self.q_table[state,action]   )
+        (new_reward + self.gamma * self.q_table[new_state, new_action] - self.q_table[state,action]   )
         # Update the state
         state = new_state
+        action = new_action
+
         epochs+=1
-        # Only add the real reward
         rewards+=reward
       # Add to the plotting
       self.plotting['Rewards'].append(rewards)
       self.plotting['Epochs'].append(epochs)
+
+    return None
