@@ -35,9 +35,9 @@ def plot_count(q_learning, q_learning_count, figsize = (14,8), window = 10, name
 
 
 def save_obj(obj, name ):
-    with open(os.path.join('results', name + '.pkl'), 'wb') as f:
+    with open( name + '.pkl', 'wb') as f:
         pickle.dump(obj, f)
 
 def load_obj(name ):
-    with open(os.path.join('results', name + '.pkl'), 'rb') as f:
+    with open( name + '.pkl', 'rb') as f:
         return pickle.load(f)

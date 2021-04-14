@@ -28,7 +28,7 @@ class Q_learning(RLAlgorithm) :
     self.hash = np.zeros((self.n_states,1))
     # The beta hyperparameter
     self.beta = beta
-
+    
 
   def epsilon_greedy(self,state) :
     ''' Selection an action with the epsilon-greedy policy '''
