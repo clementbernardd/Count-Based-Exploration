@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import pickle
 
 
 def running_mean(x, N):
@@ -31,3 +31,12 @@ def plot_count(q_learning, q_learning_count, figsize = (14,8), window = 10, name
     ax.flatten()[0].legend()
 
   return None
+
+
+def save_obj(obj, name ):
+    with open(os.path.join('results', 'name' + '.pkl'), 'wb') as f:
+        pickle.dump(obj, f)
+
+def load_obj(name ):
+    with open(os.path.join('results', 'name' + '.pkl'), 'rb') as f:
+        return pickle.load(f)
