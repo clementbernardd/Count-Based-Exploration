@@ -29,7 +29,7 @@ class DQNAgent(object) :
 
     self.qnetwork_local = QNetwork(state_size, state_emb, hidden_size, action_size).to(device)
     self.state = STATE(input_size = state_size, output_size = state_emb).to(device)
-    self.hash = SimHash(state_emb, k) if k is not None else None 
+    self.hash = SimHash(state_emb, k, device ) if k is not None else None 
 
     self.optimizer = optimizer(self.qnetwork_local.parameters(), lr = lr )
     self.buffer = Buffer(BUFFER_SIZE)
