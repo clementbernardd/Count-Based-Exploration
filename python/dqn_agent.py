@@ -6,8 +6,8 @@ from buffer import *
 
 
 
-class DQAgent(object) :
-  ''' DQAgent '''
+class DQNAgent(object) :
+  ''' DQN Agent '''
   def __init__(self,BUFFER_SIZE,state_size, state_emb , hidden_size,action_size, batch_size, \
                gamma, optimizer, criterion, lr , device) :
     '''
