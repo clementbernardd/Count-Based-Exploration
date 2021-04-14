@@ -6,7 +6,7 @@ from utils import *
 
 class Q_learning(RLAlgorithm) :
   ''' Q-learning with or without Count-based implementation '''
-  def __init__(self, env, alpha,gamma, epsilon,beta = None , n_actions = None , n_states = None ) :
+  def __init__(self, env, alpha,gamma, epsilon,beta = None , n_actions = None , n_states = None , name = 'Q-learning') :
     '''
       - env : The environment (an openai gym environment)
       - alpha : The step size between [0,1[
@@ -28,7 +28,16 @@ class Q_learning(RLAlgorithm) :
     self.hash = np.zeros((self.n_states,1))
     # The beta hyperparameter
     self.beta = beta
-    
+    self.name = os.path.join('models', name)
+
+  def save(self) :
+    save_obj(self.q_table , self.name  + '_q_table')
+    save_obj(self.hash , self.name  + '_hash' )
+
+  def load(self)  :
+    self.q_table = load_obj(self.name + '_q_table')
+    self.hash = load_obj(self.name + '_hash')
+
 
   def epsilon_greedy(self,state) :
     ''' Selection an action with the epsilon-greedy policy '''
