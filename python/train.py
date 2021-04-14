@@ -8,6 +8,7 @@ from buffer import *
 from dqn_agent import *
 from qnetwork import *
 from state import *
+from simhash import * 
 
 
 
