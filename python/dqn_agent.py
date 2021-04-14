@@ -10,7 +10,7 @@ from state import *
 class DQNAgent(object) :
   ''' DQN Agent '''
   def __init__(self,BUFFER_SIZE,state_size, state_emb , hidden_size,action_size, batch_size, \
-               gamma, optimizer, criterion, lr , device) :
+               gamma, optimizer, criterion, lr , device, k = None, beta = None ) :
     '''
     - BUFFER_SIZE : The size of the memory replay
     - state_size : The initial size of states
@@ -23,15 +23,18 @@ class DQNAgent(object) :
     - criterion : The criterion to use
     - lr : The learning rate
     - device : The device (cpu or gpu)
-
+    - k : The size of the A matrix in the Static hasing
+    - beta : The beta parameter from the count-based exploration article
     '''
 
     self.qnetwork_local = QNetwork(state_size, state_emb, hidden_size, action_size).to(device)
     self.state = STATE(input_size = state_size, output_size = state_emb).to(device)
+    self.hash = SimHash(state_emb, k)
 
     self.optimizer = optimizer(self.qnetwork_local.parameters(), lr = lr )
     self.buffer = Buffer(BUFFER_SIZE)
 
+    self.beta = beta
     self.batch_size = batch_size
     self.gamma = gamma
     self.action_size = action_size
@@ -40,13 +43,13 @@ class DQNAgent(object) :
     self.device = device
 
 
-  def step(self, state, action, reward, new_state, done) :
+  def step(self, state, action, reward, new_state, done,count_based = False ) :
     ''' Do one step of the algorithm '''
     self.buffer.add(state, action, reward, new_state, done)
 
     if len(self.buffer) > self.batch_size :
       states, actions, rewards, new_states, dones = self.buffer.sample(self.batch_size)
-      loss = self.learn(states, actions, rewards, new_states, dones)
+      loss = self.learn(states, actions, rewards, new_states, dones, count_based)
       return loss
 
   def act(self, state, eps = 0) :
@@ -62,7 +65,7 @@ class DQNAgent(object) :
     else :
       return torch.argmax(all_actions, dim =1 ).item()
 
-  def learn(self, states, actions, rewards, new_states, dones) :
+  def learn(self, states, actions, rewards, new_states, dones, count_based = False) :
     ''' Update the QNetwork with mini-batch '''
     self.qnetwork_local.train()
 
@@ -72,7 +75,16 @@ class DQNAgent(object) :
 
     with torch.no_grad() :
       next_preds = self.qnetwork_local(new_states).detach().max(1)[0]
-    target = rewards + ((1 - dones) * self.gamma * next_preds)
+      if count_based :
+        # Add the counting based parts
+        counts = self.hash.count(states)
+        # Compute the new rewards
+        count_reward = self.beta / torch.sqrt(counts)
+      else :
+        count_reward = 0
+    # Get the reward with or without count-based method
+    new_reward = count_reward + rewards
+    target = new_reward + ((1 - dones) * self.gamma * next_preds)
 
     loss = self.criterion(preds.float(), target.reshape(-1,1).float()).to(self.device)
     self.optimizer.zero_grad()
