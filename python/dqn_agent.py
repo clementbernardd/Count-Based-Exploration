@@ -3,7 +3,7 @@ import torch.nn as nn
 import numpy as np
 from buffer import *
 from qnetwork import *
-from state import * 
+from state import *
 
 
 
@@ -81,3 +81,7 @@ class DQNAgent(object) :
 
 
     return loss.item()
+  def save(self) :
+      self.qnetwork_local.save_checkpoint()
+  def load(self) :
+      self.qnetwork_local.load_checkpoint()
