@@ -34,6 +34,17 @@ def plot_count(q_learning, q_learning_count, figsize = (14,8), window = 10, name
   return None
 
 
+def plot_barchart_count_based(hash ,figsize = (14,6), method = 'Q-learning'):
+  ''' Plot a barchart of the count of the states '''
+  plt.subplots(figsize = figsize)
+  plt.bar(np.arange(len(hash)), hash, 1.5, align = 'center' )
+  plt.xlabel('States')
+  plt.ylabel('Count of states')
+  plt.title('Counts of states with {}'.format(method))
+  plt.grid(True)
+  plt.show()
+
+
 def save_obj(obj, name ):
     with open( name + '.pkl', 'wb') as f:
         pickle.dump(obj, f)

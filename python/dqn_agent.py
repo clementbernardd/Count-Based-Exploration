@@ -10,7 +10,7 @@ from simhash import *
 class DQNAgent(object) :
   ''' DQN Agent '''
   def __init__(self,BUFFER_SIZE,state_size, state_emb , hidden_size,action_size, batch_size, \
-               gamma, optimizer, criterion, lr , device, k = None, beta = None ) :
+               gamma, optimizer, criterion, lr , device, k = None, beta = None, name = 'DQN' ) :
     '''
     - BUFFER_SIZE : The size of the memory replay
     - state_size : The initial size of states
@@ -27,9 +27,9 @@ class DQNAgent(object) :
     - beta : The beta parameter from the count-based exploration article
     '''
 
-    self.qnetwork_local = QNetwork(state_size, state_emb, hidden_size, action_size).to(device)
+    self.qnetwork_local = QNetwork(state_size, state_emb, hidden_size, action_size, name = name).to(device)
     self.state = STATE(input_size = state_size, output_size = state_emb).to(device)
-    self.hash = SimHash(state_emb, k, device ) if k is not None else None 
+    self.hash = SimHash(state_emb, k, device ) if k is not None else None
 
     self.optimizer = optimizer(self.qnetwork_local.parameters(), lr = lr )
     self.buffer = Buffer(BUFFER_SIZE)
