@@ -5,12 +5,7 @@ import os
 
 
 def running_mean(x, N):
-
-    mask=np.ones((1,N))/N
-    mask=mask[0,:]
-    result = np.convolve(x,mask,'same')
-
-    return result
+    return np.convolve(x, np.ones((N,))/N, 'same')[(N-1):]
 
 
 def plot_count(q_learning, q_learning_count, figsize = (14,8), window = 10, name = 'Q_learning') :
