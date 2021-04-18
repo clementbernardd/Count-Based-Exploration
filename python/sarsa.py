@@ -7,7 +7,7 @@ from utils import *
 
 class SARSA(RLAlgorithm) :
   ''' SARSA implementation '''
-  def __init__(self, env, alpha,gamma, epsilon, beta=None ,n_actions = None , n_states = None ) :
+  def __init__(self, env, alpha,gamma, epsilon, beta=None ,n_actions = None , n_states = None, name = 'Sarsa' ) :
     '''
       - env : The environment (an openai gym environment)
       - alpha : The step size between [0,1[
@@ -27,6 +27,15 @@ class SARSA(RLAlgorithm) :
     self.q_table = np.zeros((self.n_states, self.n_actions))
     self.hash = np.zeros((self.n_states,1))
     self.beta = beta
+    self.name = os.path.join('models', name)
+
+    def save(self) :
+        save_obj(self.q_table , self.name  + '_q_table')
+        save_obj(self.hash , self.name  + '_hash' )
+
+    def load(self)  :
+        self.q_table = load_obj(self.name + '_q_table')
+        self.hash = load_obj(self.name + '_hash')
 
 
   def epsilon_greedy(self,state) :
