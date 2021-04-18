@@ -7,7 +7,7 @@ import torch.nn.functional as F
 from buffer import *
 from dueling_dqn import *
 from simhash import *
-
+from dueling_qnetwork import * 
 
 class DuelingDQNAgent(object) :
   ''' Dueling DDQN  '''
