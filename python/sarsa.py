@@ -29,14 +29,13 @@ class SARSA(RLAlgorithm) :
     self.beta = beta
     self.name = os.path.join('models', name)
 
-    def save(self) :
-        save_obj(self.q_table , self.name  + '_q_table')
-        save_obj(self.hash , self.name  + '_hash' )
+  def save(self) :
+    save_obj(self.q_table , self.name  + '_q_table')
+    save_obj(self.hash , self.name  + '_hash' )
 
-    def load(self)  :
-        self.q_table = load_obj(self.name + '_q_table')
-        self.hash = load_obj(self.name + '_hash')
-
+  def load(self)  :
+    self.q_table = load_obj(self.name + '_q_table')
+    self.hash = load_obj(self.name + '_hash')
 
   def epsilon_greedy(self,state) :
     ''' Selection an action with the epsilon-greedy policy '''
