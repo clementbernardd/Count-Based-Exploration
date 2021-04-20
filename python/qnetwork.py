@@ -11,7 +11,7 @@ class QNetwork(nn.Module) :
       - state_emb : The size of the new state representation
       - hidden_size : The size of the hidden neural network
       - action_space : The output of the network (size of the actions)
-      - name : The name of the model to save it 
+      - name : The name of the model to save it
     '''
     super(QNetwork,self).__init__()
 
@@ -27,9 +27,6 @@ class QNetwork(nn.Module) :
   def forward(self, x) :
     x = x.reshape(-1,self.state_emb)
     return self.fc(x)
-
-  def get_state(self,x) :
-    return self.state(x)
 
   def save_checkpoint(self) :
       print('--- Save model checkpoint ---')
