@@ -4,29 +4,12 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import os 
-
-
-
-class STATE_RELU(nn.Module) :
-  ''' State representation '''
-  def __init__(self, input_size, output_size) :
-    '''
-      - input_size : The size of the state
-      - output_size : The size of the new representation
-    '''
-    super(STATE_RELU,self).__init__()
-
-    self.state = nn.Linear(input_size, output_size)
-
-  def forward(self, x):
-    return F.relu(self.state(x.float()))
-
+import os
 
 
 class DuelingQNetwork(nn.Module) :
   ''' Dueling Network that uses Value and Advantage'''
-  def __init__(self , state_emb,hidden_size, action_space, name = 'dueling_dqn') :
+  def __init__(self , state_size,hidden_size, action_space, name = 'dueling_dqn') :
     '''
       - state_emb : The size of the new state representation
       - hidden_size : The size of the hidden neural network
@@ -38,14 +21,18 @@ class DuelingQNetwork(nn.Module) :
 
     self.checkpoint = os.path.join('models', name)
 
-    self.state_emb = state_emb
+    self.state_size = state_size
 
-    self.value = nn.Linear(state_emb, 1)
+    self.state = nn.Linear(state_size, hidden_size)
 
-    self.advantage = nn.Linear(state_emb, action_space)
+    self.value = nn.Linear(hidden_size, 1)
+
+    self.advantage = nn.Linear(hidden_size, action_space)
 
   def forward(self, x) :
-    x = (x.reshape(-1,self.state_emb))
+    x = (x.reshape(-1,self.state_size))
+
+    x = nn.ReLU()(self.state(x.float()))
 
     value = self.value(x)
 
@@ -54,9 +41,6 @@ class DuelingQNetwork(nn.Module) :
     q_value = value + (advantage - advantage.mean(dim=1, keepdim=True))
 
     return q_value
-
-  def get_state(self,x) :
-    return self.state(x)
 
   def save_checkpoint(self) :
       print('--- Save model checkpoint ---')
