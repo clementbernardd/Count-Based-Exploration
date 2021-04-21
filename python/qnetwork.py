@@ -17,15 +17,17 @@ class QNetwork(nn.Module) :
 
     self.checkpoint = os.path.join('models', name)
 
-    self.state_emb = state_emb
+    self.state_size = state_size
     self.fc = nn.Sequential(
+          nn.Linear(state_size, state_emb),
+          nn.ReLU(),
           nn.Linear(state_emb,hidden_size ),
           nn.ReLU(),
           nn.Linear(hidden_size, action_space),
     )
 
   def forward(self, x) :
-    x = x.reshape(-1,self.state_emb)
+    x = x.reshape(-1,self.state_size).float()
     return self.fc(x)
 
   def save_checkpoint(self) :

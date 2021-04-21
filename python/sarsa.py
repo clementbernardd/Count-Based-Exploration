@@ -37,9 +37,9 @@ class SARSA(RLAlgorithm) :
     self.q_table = load_obj(self.name + '_q_table')
     self.hash = load_obj(self.name + '_hash')
 
-  def epsilon_greedy(self,state) :
+  def epsilon_greedy(self,state,eps = 0) :
     ''' Selection an action with the epsilon-greedy policy '''
-    if np.random.uniform(0,1) < self.epsilon :
+    if np.random.uniform(0,1) < eps :
       # Return a random action
       return self.env.action_space.sample()
     else :
@@ -48,6 +48,10 @@ class SARSA(RLAlgorithm) :
 
   def train(self, n_episodes = 1000, count_based = False) :
     ''' Train the model with SARSA algorithm '''
+    if count_based :
+        eps = 0
+    else :
+        eps = self.epsilon
     # Loop over the number of episodes
     for e in range(n_episodes) :
       # Reset the environment
@@ -63,7 +67,7 @@ class SARSA(RLAlgorithm) :
         # Do the action in the environment
         new_state, reward, done, info = self.env.step(action)
 
-        new_action = self.epsilon_greedy(new_state)
+        new_action = self.epsilon_greedy(new_state, eps)
         if count_based :
           # Update the count based method
           self.hash[state] = self.hash[state]+1

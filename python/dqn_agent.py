@@ -3,8 +3,8 @@ import torch.nn as nn
 import numpy as np
 from buffer import *
 from qnetwork import *
-from state import *
 from simhash import *
+from utils import *
 
 
 class DQNAgent(object) :
@@ -27,9 +27,9 @@ class DQNAgent(object) :
     - beta : The beta parameter from the count-based exploration article
     '''
 
+    self.name = name
     self.qnetwork_local = QNetwork(state_size, state_emb, hidden_size, action_size, name = name).to(device)
-    self.state = STATE(input_size = state_size, output_size = state_emb).to(device)
-    self.hash = SimHash(state_emb, k, device ) if k is not None else None
+    self.hash = SimHash(state_size, k, device ) if k is not None else None
 
     self.optimizer = optimizer(self.qnetwork_local.parameters(), lr = lr )
     self.buffer = Buffer(BUFFER_SIZE)
@@ -56,7 +56,7 @@ class DQNAgent(object) :
     ''' Choose action with epsilon-greedy policy '''
     self.qnetwork_local.eval()
     with torch.no_grad() :
-      state = self.state(torch.from_numpy(state).to(self.device))
+      state = torch.from_numpy(state).to(self.device)
       all_actions = self.qnetwork_local(state)
     self.qnetwork_local.train()
 
@@ -68,9 +68,6 @@ class DQNAgent(object) :
   def learn(self, states, actions, rewards, new_states, dones, count_based = False) :
     ''' Update the QNetwork with mini-batch '''
     self.qnetwork_local.train()
-
-    states = self.state(states)
-    new_states = self.state(new_states)
     preds = self.qnetwork_local(states).gather(1, actions.reshape(-1,1))
 
     with torch.no_grad() :
@@ -95,5 +92,9 @@ class DQNAgent(object) :
     return loss.item()
   def save(self) :
       self.qnetwork_local.save_checkpoint()
+      if self.hash is not None :
+        save_obj(self.hash.hash, os.path.join('models' ,self.name + '_hash'))
   def load(self) :
       self.qnetwork_local.load_checkpoint()
+      if self.hash is not None :
+        self.hash.hash = load_obj(os.path.join(self.name + '_hash'))

@@ -8,9 +8,16 @@ from utils import *
 class ActionSpace(object) :
   def __init__(self, env) :
     self.env = env
+    self.n = env.action_space.n
 
   def sample(self) :
     return self.env.action_space.sample()
+
+
+class ObservationSpace(object) :
+  def __init__(self, n) :
+    self.n = n
+
 
 
 class Discretize(object) :
@@ -25,6 +32,7 @@ class Discretize(object) :
     self.n_states = self.convert_state(env.observation_space.high)
     self.env = env
     self.action_space = ActionSpace(self.env)
+    self.observation_space = ObservationSpace(self.n_states)
 
   def step(self, action) :
     new_state, reward, done, info = self.env.step(action)

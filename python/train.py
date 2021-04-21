@@ -8,7 +8,7 @@ from buffer import *
 from dqn_agent import *
 from qnetwork import *
 from state import *
-from simhash import * 
+from simhash import *
 
 
 
@@ -23,13 +23,19 @@ class Train(RLAlgorithm):
     super().__init__()
     self.env = env
     self.dqagent = dqagent
-    self.histories = histories
 
-  def train(self, n_episodes = 100, t_max = 300, eps_start = 1, eps_end = 0.01, eps_decay = 0.996, count_based = False ) :
+  def save(self) :
+    self.dqagent.save()
+
+  def load(self) :
+    self.dqagent.load()
+
+  def train(self, n_episodes = 100, eps = 0.1,t_max = 500 ,count_based = False, to_plot = True  ) :
     ''' Train with the agent algorithm '''
     self.plotting['Loss'] = []
 
-    eps = eps_start
+    if count_based :
+      eps = 0
 
     for e in range(n_episodes) :
       state = self.env.reset()
@@ -51,7 +57,6 @@ class Train(RLAlgorithm):
 
         all_rewards+=reward
 
-        eps = max(eps*eps_decay,eps_end)
         if done :
           break
             # Add to the plotting
@@ -61,10 +66,9 @@ class Train(RLAlgorithm):
 
       losses = np.array(self.plotting['Loss'])
       rewards_ = np.array(self.plotting['Rewards'])
-      if self.histories is not None :
-        self.histories.sendLoss(loss = np.mean(losses), epoch = e, total_epochs = n_episodes, acc=np.mean(rewards_))
 
-      if (e % 10 == 0) :
+
+      if (e % 10 == 0) and to_plot :
         print('Episode {} , Reward : {}, Epsilon {}'.format(e,all_rewards, eps))
     # Save the model
-    self.dqagent.save()
+    # self.dqagent.save()

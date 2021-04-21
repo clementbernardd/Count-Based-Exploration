@@ -39,9 +39,9 @@ class Q_learning(RLAlgorithm) :
     self.hash = load_obj(self.name + '_hash')
 
 
-  def epsilon_greedy(self,state) :
+  def epsilon_greedy(self,state, eps = 0) :
     ''' Selection an action with the epsilon-greedy policy '''
-    if np.random.uniform(0,1) < self.epsilon :
+    if np.random.uniform(0,1) < eps :
       # Return a random action
       return self.env.action_space.sample()
     else :
@@ -50,6 +50,10 @@ class Q_learning(RLAlgorithm) :
 
   def train(self, n_episodes = 1000, count_based = False) :
     ''' Train the model with Q-learning algorithm '''
+    if count_based :
+        eps = 0
+    else :
+        eps = self.epsilon
     # Loop over the number of episodes
     for e in range(n_episodes) :
       # Reset the environment
@@ -61,7 +65,7 @@ class Q_learning(RLAlgorithm) :
 
       while not done :
         # Get an action with the epsilon-greedy policy
-        action = self.epsilon_greedy(state)
+        action = self.epsilon_greedy(state, eps = eps)
         # Do the action in the environment
         new_state, reward, done, info = self.env.step(action)
         if count_based :
