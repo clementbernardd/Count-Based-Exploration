@@ -78,8 +78,6 @@ def train_all_deep(algorithm, hp, n_episodes,env ,name_env,name , SEEDS , count_
     torch.manual_seed(seed)
     np.random.seed(seed)
     hp['name'] = os.path.join(name_env, name, name+str(seed))
-
-
     if count_based :
       hp['name'] += '_cb'
     hp['env'] = env
@@ -140,12 +138,6 @@ def train_all_deep(algorithm, hp, n_episodes,env ,name_env,name , SEEDS ,TRAIN, 
     save_obj(all_count, path_hash)
   save_obj(all_means,path)
   return all_means, all_count
-
-
-
-
-
-
 
 
 def get_upper_bounds(results_by_seed) :

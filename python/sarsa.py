@@ -33,7 +33,7 @@ class SARSA(RLAlgorithm) :
     save_obj(self.q_table , self.name  + '_q_table')
     save_obj(self.hash , self.name  + '_hash' )
 
-  def load(self)  :
+  def load(self, hash = True )  :
     self.q_table = load_obj(self.name + '_q_table')
     self.hash = load_obj(self.name + '_hash')
 

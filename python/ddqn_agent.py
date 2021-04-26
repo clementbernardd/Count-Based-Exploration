@@ -110,8 +110,8 @@ class DDQNAgent(object) :
     self.qnetwork_target.save_checkpoint()
     if self.hash is not None :
       save_obj(self.hash.hash, os.path.join('models' ,self.name + '_hash'))
-  def load(self) :
+  def load(self, hash = True) :
     self.qnetwork_local.load_checkpoint()
     self.qnetwork_target.load_checkpoint()
-    if self.hash is not None :
+    if self.hash is not None and hash :
       self.hash.hash = load_obj(os.path.join(self.name + '_hash'))
