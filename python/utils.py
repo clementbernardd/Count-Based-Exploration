@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import pickle
 import os
 import torch
+import pandas as pd
+import plotly.express as px
+
 
 def running_mean(x, N):
     return np.convolve(x, np.ones((N,))/N, 'same')[(N-1):]
@@ -201,3 +204,65 @@ def save_obj(obj, name ):
 def load_obj(name ):
     with open( name + '.pkl', 'rb') as f:
         return pickle.load(f)
+
+def simulate(env, model, t_max = 500, save_every = 10) :
+  ''' Simulate the environment with the given model. If model is None, random actions'''
+  all_rewards = []
+  frames = []
+  for i in range(10) :
+    current_rew = 0
+    state = env.reset()
+    for ep in range(t_max) :
+      if model is None :
+        action = env.action_space.sample()
+      else :
+        action = model.act(state)
+      state, reward, done, _ = env.step(action)
+      current_rew+=reward
+      if done :
+        break
+      if ep % save_every == 0 :
+        frames.append(env.render(mode='rgb_array'))
+    all_rewards.append(current_rew)
+  return frames,np.mean(all_rewards)
+
+
+def plot_rewards_simulation(rewards_dict,name_env,random_score, figsize = (18,8)) :
+  ''' Plot a bar chart of the rewards on the simulation '''
+  models = list(rewards_dict.keys())
+  names = []
+  rewards = []
+  for model in models :
+    names.append(model+'_baseline')
+    names.append(model+'_count_based')
+    rewards.extend(rewards_dict[model])
+  # Sort the results
+  indexes = np.argsort(-np.array(rewards))
+  rewards = np.array(rewards)[indexes]
+  names = np.array(names)[indexes]
+  colors = ['blue' if 'baseline' in x else 'orange'   for x in names ]
+  exploration = ['baseline' if 'baseline' in x else 'count_based'   for x in names ]
+  df = {'Model' : names, 'Rewards' : rewards, 'Exploration' : exploration, 'Colors' : colors}
+  df = pd.DataFrame(df)
+
+  fig = go.Figure(data=[go.Bar(
+    x=df['Model'],
+    y=df['Rewards'],
+    width=[0.9 for i in range(df.shape[0])],
+    marker_color=df['Colors']
+    )])
+
+  fig.add_shape(type='line',
+                x0=-1,
+                y0=random_score,
+                x1=df.shape[0],
+                y1=random_score,
+                line=dict(color='Red',),
+                xref='x',
+                yref='y'
+                )
+  fig.update_layout(
+   title = 'Mean rewards for environment : {}'.format(name_env)
+)
+
+  fig.show()
