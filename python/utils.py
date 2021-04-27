@@ -5,7 +5,7 @@ import os
 import torch
 import pandas as pd
 import plotly.express as px
-
+import plotly.graph_objects as go
 
 def running_mean(x, N):
     return np.convolve(x, np.ones((N,))/N, 'same')[(N-1):]
