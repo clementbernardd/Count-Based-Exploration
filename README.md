@@ -168,6 +168,54 @@ Here are the average rewards on 10 instance of the environment
 The count-based method isn't working for this environment. 
 
 
+## Mountain car 
+
+### Rewards
+
+Here are the rewards for DQN, DDQN and Double DQN for the Mountain car environment. 
+
+| DQN | DDQN | Dueling DQN |  
+|---| --- | --- | 
+| ![](/images/mountain_dqn.png) | ![](/images/mountain_ddqn.png) | ![](/images/mountain_dueling_dqn.png) |
+
+The count-based method outperforms the epsilon-greedy exploration for both DQN and DDQN, but not for Dueling DQN. Such a behaviour should be explain by some struggles in the choise of the count-based hyperparameters. 
+
+
+### Histograms 
+
+Here are the histograms of the states for DQN, DDQN and Dueling DQN
+
+| DQN | DDQN | Dueling DQN |   
+|---| --- | --- | 
+| ![](/images/mountain_state_dqn.png) | ![](/images/mountain_state_ddqn.png) | ![](/images/mountain_state_dueling_dqn.png) |
+
+We see that there are around 30 different discrete states for DQN and DDQN, and 4 times more for Dueling DQN. Maybe the bad behaviour of the Dueling DQN could be explain by the sparsity of the static hashing. 
+
+### Simulation 
+
+Here is the simulation with the model of SEED 77 on 10 instances of the environment. 
+
+
+| Random |DQN (count-based) | DDQN (count-based) | Dueling DQN (count-based) |   
+|--- | ---| --- | --- | 
+|![](/gif/moutain/random/random.gif)|![](/gif/moutain/dqn/count_based.gif) | ![](/gif/moutain/ddqn/count_based.gif) | ![](/gif/moutain/dueling_dqn/count_based.gif) |
+|--- | ---| --- | --- | 
+| Random |DQN (epsilon-greedy) | DDQN (epsilon-greedy) | Dueling DQN (epsilon-greedy) |    
+|![](/gif/moutain/random/random.gif)|![](/gif/moutain/dqn/epsilon_greedy.gif) | ![](/gif/moutain/ddqn/epsilon_greedy.gif) | ![](/gif/moutain/dueling_dqn/epsilon_greedy.gif) |
+
+Only the Dueling DQN with count-based exploration doesn't solve the environment. 
+
+#### Average rewards
+
+Here are the average rewards on 10 instance of the environment 
+
+| Mean rewards | 
+| --- | 
+| ![](images/mean_moutain.png)|
+
+
+
+
 
 
 
