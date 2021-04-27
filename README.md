@@ -1,13 +1,15 @@
 # Count-Based-Exploration
 Our version of #Exploration: A Study of Count-Based Explorationfor Deep Reinforcement Learning for a class project : https://arxiv.org/pdf/1611.04717v3.pdf
+
 This aim of the project was to implement the count-based exploration with the static hashing with Deep RL algorithms. 
+
 We study the differences between the epsilon-greedy exploration for 2 tabular RL algorithms (Q-learning and Sarsa) and 3 Deep RL algorithms (DQN, DDQN and Dueling-DQN). 
 
 Here are some results of our work : 
 
 | Acrobot | Cartpole | Mountain | 
 |---| --- | --- |
-| ![](/gif/acrobot/dueling_dqn/count_based.gif)) | ![](/gif/cartpole/ddqn/epsilon_greedy.gif) | ![](/gif/mountain/ddqn/count_based.gif)   |
+| ![](/gif/acrobot/dueling_dqn/count_based.gif) | ![](/gif/cartpole/ddqn/epsilon_greedy.gif) | ![](/gif/mountain/ddqn/count_based.gif)   |
 
 
 
