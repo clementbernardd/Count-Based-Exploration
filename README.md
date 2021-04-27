@@ -108,6 +108,75 @@ Here is the simulation with the model of SEED 77 on 10 instances of the environm
 | Random |DQN (epsilon-greedy) | DDQN (epsilon-greedy) | Dueling DQN (epsilon-greedy) |    
 |![](/gif/acrobot/random/random.gif)|![](/gif/acrobot/dqn/epsilon_greedy.gif) | ![](/gif/acrobot/ddqn/epsilon_greedy.gif) | ![](/gif/acrobot/dueling_dqn/epsilon_greedy.gif) |
 
+They all perform well except the count-based DQN. It should be explain by the fact we used the model trained on SEED 77, and could have had struggle to learn because of bad initialisation. 
+
+#### Average rewards
+
+Here are the average rewards on 10 instance of the environment 
+
+| Mean rewards | 
+| --- | 
+| ![](images/mean_acrobot.png)|
+
+
+
+## Cartpole 
+
+### Rewards
+
+Here are the rewards for DQN, DDQN and Double DQN for the Cartpole environment. 
+
+| DQN | DDQN | Dueling DQN |  
+|---| --- | --- | 
+| ![](/images/cartpole_dqn.png) | ![](/images/cartpole_ddqn.png) | ![](/images/cartpole_dueling_dqn.png) |
+
+The count-based method doesn't work well for this environment. It could be explain by a bad static hashing due to the fact that there aren't a lot of dimensions on the original continuous state space. 
+
+
+### Histograms 
+
+Here are the histograms of the states for DQN, DDQN and Dueling DQN
+
+| DQN | DDQN | Dueling DQN |   
+|---| --- | --- | 
+| ![](/images/cartpole_state_dqn.png) | ![](/images/cartpole_state_ddqn.png) | ![](/images/cartpole_state_dueling_dqn.png) |
+
+As there is logarithm scale, we should consider that some states are highly more visited than others. It could explain than too much states are discretize into same representation, which unable the model to explore well.  
+
+### Simulation 
+
+Here is the simulation with the model of SEED 77 on 10 instances of the environment. 
+
+
+| Random |DQN (count-based) | DDQN (count-based) | Dueling DQN (count-based) |   
+|--- | ---| --- | --- | 
+|![](/gif/cartpole/random/random.gif)|![](/gif/cartpole/dqn/count_based.gif) | ![](/gif/cartpole/ddqn/count_based.gif) | ![](/gif/cartpole/dueling_dqn/count_based.gif) |
+|--- | ---| --- | --- | 
+| Random |DQN (epsilon-greedy) | DDQN (epsilon-greedy) | Dueling DQN (epsilon-greedy) |    
+|![](/gif/cartpole/random/random.gif)|![](/gif/cartpole/dqn/epsilon_greedy.gif) | ![](/gif/cartpole/ddqn/epsilon_greedy.gif) | ![](/gif/cartpole/dueling_dqn/epsilon_greedy.gif) |
+
+Only the epsilon-greedy version performs well. The discretisation with the static hashing isn't sufficiently granular. 
+
+#### Average rewards
+
+Here are the average rewards on 10 instance of the environment 
+
+| Mean rewards | 
+| --- | 
+| ![](images/mean_cartpole.png)|
+
+The count-based method isn't working for this environment. 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
