@@ -38,6 +38,15 @@ class Q_learning(RLAlgorithm) :
     self.q_table = load_obj(self.name + '_q_table')
     self.hash = load_obj(self.name + '_hash')
 
+  def act(self,state, eps = 0) :
+    ''' Selection an action with the epsilon-greedy policy '''
+    if np.random.uniform(0,1) < eps :
+      # Return a random action
+      return self.env.action_space.sample()
+    else :
+      # Return the best action from the state
+      return np.argmax(self.q_table[state])
+
 
   def epsilon_greedy(self,state, eps = 0) :
     ''' Selection an action with the epsilon-greedy policy '''

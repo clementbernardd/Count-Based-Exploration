@@ -1,7 +1,5 @@
 import numpy as np
 import torch
-from state import *
-
 
 
 class SimHash(object) :
