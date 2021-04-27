@@ -3,7 +3,7 @@ Our version of #Exploration: A Study of Count-Based Explorationfor Deep Reinforc
 
 This aim of the project was to implement the count-based exploration with the static hashing with Deep RL algorithms. 
 
-We study the differences between the epsilon-greedy exploration for 2 tabular RL algorithms (Q-learning and Sarsa) and 3 Deep RL algorithms (DQN, DDQN and Dueling-DQN). 
+We study the differences between the epsilon-greedy exploration for 2 tabular RL algorithms (Q-learning and Sarsa) and 3 Deep RL algorithms (DQN, DDQN and Dueling DQN). 
 
 Here are some results of our work : 
 
@@ -70,6 +70,78 @@ Here are the histograms of the states for both Q-learning and Sarsa for the coun
 | Q-learning | Sarsa |  
 |---| --- | 
 | ![](/images/taxi_state_q_learning.png) | ![](/images/taxi_state_sarsa.png) | 
+
+The histograms of the states are quite balanced and the rewards show that both methods of exploration work well. 
+
+
+## Acrobot 
+
+### Rewards
+
+Here are the rewards for DQN, DDQN and Double DQN for the Acrobot environment. 
+
+| DQN | DDQN | Dueling DQN |  
+|---| --- | --- | 
+| ![](/images/acrobot_dqn.png) | ![](/images/acrobot_ddqn.png) | ![](/images/acrobot_dueling_dqn.png) |
+
+All the methods work well, and it seems that the count-based methods is slightly faster than the epsilon-greedy exploration. 
+
+### Histograms 
+
+Here are the histograms of the states for DQN, DDQN and Dueling DQN 
+
+| DQN | DDQN | Dueling DQN |   
+|---| --- | --- | 
+| ![](/images/acrobot_state_dqn.png) | ![](/images/acrobot_state_ddqn.png) | ![](/images/acrobot_state_dueling_dqn.png) |
+
+We see that few states are more visited than others, but the behaviour seems correct and the model has learnt well. 
+
+### Simulation 
+
+Here is the simulation with the model of SEED 77 on 10 instances of the environment. 
+|Random |
+|---|
+![](/gif/acrobot/random/random.gif)
+|---|
+|Count-based exploration|
+|---|
+|DQN | DDQN | Dueling DQN |   
+| ---| --- | --- | 
+|![](/gif/acrobot/dqn/count_based.gif) | ![](/gif/acrobot/ddqn/count_based.gif) | ![](/gif/acrobot/dueling_dqn/count_based.gif) |
+| --- | 
+| Epsilon-greedy | 
+| ---|  
+|![](/gif/acrobot/dqn/epsilon_greedy.gif) | ![](/gif/acrobot/ddqn/epsilon_greedy.gif) | ![](/gif/acrobot/dueling_dqn/epsilon_greedy.gif) |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
