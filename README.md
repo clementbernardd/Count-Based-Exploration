@@ -1,4 +1,4 @@
-# Count-Based-Exploration
+# Count-Based Exploration
 Our version of #Exploration: A Study of Count-Based Explorationfor Deep Reinforcement Learning for a class project : https://arxiv.org/pdf/1611.04717v3.pdf
 
 This aim of the project was to implement the count-based exploration with the static hashing with Deep RL algorithms. 
