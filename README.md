@@ -99,9 +99,11 @@ We see that few states are more visited than others, but the behaviour seems cor
 ### Simulation 
 
 Here is the simulation with the model of SEED 77 on 10 instances of the environment. 
+
+
 |Random |
 |---|
-![](/gif/acrobot/random/random.gif)
+|![](/gif/acrobot/random/random.gif)|
 |---|
 |Count-based exploration|
 |---|
