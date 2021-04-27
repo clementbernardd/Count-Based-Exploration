@@ -10,7 +10,7 @@ Here are some results of our work :
 | Acrobot | Cartpole | Mountain | 
 |---| --- | --- |
 | ![](/gif/acrobot/dueling_dqn/count_based.gif) | ![](/gif/cartpole/ddqn/epsilon_greedy.gif) | ![](/gif/mountain/ddqn/count_based.gif)   |
-
+| Dueling DQN with count based exploration | DDQN with epsilon-greedy exploration  | DDQN with count based method | 
 
 
 # Count-based 
