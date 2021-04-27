@@ -44,18 +44,55 @@ Once we have discretize the continuous states, we use a dictionnary to count the
 | ![](/images/count_based_logo.png) | 
 
 
-
-
-
-
-
-
-
-
-
-
-
 # Results 
+
+We have trained 2 tabular methods (Q-learning and Sarsa) and 3 Deep RL methods (DQN, DDQN and Dueling DQN) on 4 different environments : Taxi, Acrobot, Cartpole and Mountain Car. 
+
+We have trained each model on the environments with 10 SEEDS and stored the rewards. After that, we plot the average rewards and the variance of the rewards over the episodes. 
+
+We have trained our models with the same hyperparameters for both epsilon-greedy and count based explorations. The hyperparameters are summarised in the `Summary.ipynb` notebook. 
+
+
+## Taxi 
+
+#### Rewards
+
+Here are the rewards for Q-learning and Sarsa. 
+
+| Q-learning | Sarsa |  
+|---| --- | 
+| ![](/images/taxi_q_learning.png) | ![](/images/taxi_sarsa.png) | 
+ 
+### Histograms 
+
+Here are the histograms of the states for both Q-learning and Sarsa for the count-based method 
+
+| Q-learning | Sarsa |  
+|---| --- | 
+| ![](/images/taxi_state_q_learning.png) | ![](/images/taxi_state_sarsa.png) | 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
