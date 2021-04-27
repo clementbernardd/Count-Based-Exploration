@@ -44,6 +44,23 @@ Once we have discretize the continuous states, we use a dictionnary to count the
 | ![](/images/count_based_logo.png) | 
 
 
+
+
+
+# Description 
+
+- `gif` : The gif folder where all the results of the models are saved
+- `images` : The images used for either the notebooks or the report
+- `models` : The models parameters 
+- `notebooks` : The notebooks used during the project
+- `python` : The python files used (like the architectures of the models)
+- `requirements.txt` : The version of the library used
+- `results` : The results of the training 
+- `zip` : A zip file where the `gif`, `models`, `python` and `results` are compressed to be used in a notebook
+
+
+
+
 # Results 
 
 We have trained 2 tabular methods (Q-learning and Sarsa) and 3 Deep RL methods (DQN, DDQN and Dueling DQN) on 4 different environments : Taxi, Acrobot, Cartpole and Mountain Car. 
@@ -104,7 +121,6 @@ Here is the simulation with the model of SEED 77 on 10 instances of the environm
 | Random |DQN (count-based) | DDQN (count-based) | Dueling DQN (count-based) |   
 |--- | ---| --- | --- | 
 |![](/gif/acrobot/random/random.gif)|![](/gif/acrobot/dqn/count_based.gif) | ![](/gif/acrobot/ddqn/count_based.gif) | ![](/gif/acrobot/dueling_dqn/count_based.gif) |
-|--- | ---| --- | --- | 
 | Random |DQN (epsilon-greedy) | DDQN (epsilon-greedy) | Dueling DQN (epsilon-greedy) |    
 |![](/gif/acrobot/random/random.gif)|![](/gif/acrobot/dqn/epsilon_greedy.gif) | ![](/gif/acrobot/ddqn/epsilon_greedy.gif) | ![](/gif/acrobot/dueling_dqn/epsilon_greedy.gif) |
 
@@ -151,7 +167,6 @@ Here is the simulation with the model of SEED 77 on 10 instances of the environm
 | Random |DQN (count-based) | DDQN (count-based) | Dueling DQN (count-based) |   
 |--- | ---| --- | --- | 
 |![](/gif/cartpole/random/random.gif)|![](/gif/cartpole/dqn/count_based.gif) | ![](/gif/cartpole/ddqn/count_based.gif) | ![](/gif/cartpole/dueling_dqn/count_based.gif) |
-|--- | ---| --- | --- | 
 | Random |DQN (epsilon-greedy) | DDQN (epsilon-greedy) | Dueling DQN (epsilon-greedy) |    
 |![](/gif/cartpole/random/random.gif)|![](/gif/cartpole/dqn/epsilon_greedy.gif) | ![](/gif/cartpole/ddqn/epsilon_greedy.gif) | ![](/gif/cartpole/dueling_dqn/epsilon_greedy.gif) |
 
@@ -199,7 +214,6 @@ Here is the simulation with the model of SEED 77 on 10 instances of the environm
 | Random |DQN (count-based) | DDQN (count-based) | Dueling DQN (count-based) |   
 |--- | ---| --- | --- | 
 |![](/gif/mountain/random/random.gif)|![](/gif/mountain/dqn/count_based.gif) | ![](/gif/mountain/ddqn/count_based.gif) | ![](/gif/mountain/dueling_dqn/count_based.gif) |
-|--- | ---| --- | --- | 
 | Random |DQN (epsilon-greedy) | DDQN (epsilon-greedy) | Dueling DQN (epsilon-greedy) |    
 |![](/gif/mountain/random/random.gif)|![](/gif/mountain/dqn/epsilon_greedy.gif) | ![](/gif/mountain/ddqn/epsilon_greedy.gif) | ![](/gif/mountain/dueling_dqn/epsilon_greedy.gif) |
 
@@ -214,90 +228,20 @@ Here are the average rewards on 10 instance of the environment
 | ![](images/mean_mountain.png)|
 
 
+The results are quite ambiguous for this environment : this is DQN with epsilon-greedy exploration that solves the best the environment. 
+The count-based exploration tends to be efficient but not strongly better than the epsilon-greedy exploration. 
 
 
 
+# Conclusion 
 
+- In this work, we explored a tabular exploration method that could be extended for continuous state space.
+The count-based exploration aims to explore by adding a reward that considers the number of times the agent has visited a given state. Such a state that has been mapped with a hashing function in order to convert it from continuous space into discrete space. The static hashing is the main bottleneck of this exploration method : it should compress enough in order to map close states in the continuous space into the same discrete representation. 
 
+- We achieved to implement such exploration and succeeded in outperforming epsilon-greedy exploration for the acrobot and mountain car environments, but we didn't succeed with cartpole and the Dueling DQN algorithm with mountain car environment. 
 
+- Such conclusion leads to the fact that the choice of hashing function is really important. A good improvement could be the learning hashing mentioned in the paper, which is much more challenging as the hashing is changing during the training process.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Description 
-
-- `gif` : The gif folder where all the results of the models are saved
-- `images` : The images used for either the notebooks or the report
-- `models` : The models parameters 
-- `notebooks` : The notebooks used during the project
-- `python` : The python files used (like the architectures of the models)
-- `requirements.txt` : The version of the library used
-- `results` : The results of the training 
-- `zip` : A zip file where the `gif`, `models`, `python` and `results` are compressed to be used in a notebook
-
-
-
-
-
-
-
-
+- Another limitation of our work is the fact that we didn't implement the same deep RL algorithm than the paper (TRPO). Therefore, the comparison with the papers are limited, added to the fact that we didn't implement all the environments that are too expensive to train.
 
 
