@@ -101,19 +101,13 @@ We see that few states are more visited than others, but the behaviour seems cor
 Here is the simulation with the model of SEED 77 on 10 instances of the environment. 
 
 
-|Random |
-|---|
-|![](/gif/acrobot/random/random.gif)|
-|---|
-|Count-based exploration|
-|---|
-|DQN | DDQN | Dueling DQN |   
-| ---| --- | --- | 
-|![](/gif/acrobot/dqn/count_based.gif) | ![](/gif/acrobot/ddqn/count_based.gif) | ![](/gif/acrobot/dueling_dqn/count_based.gif) |
-| --- | 
-| Epsilon-greedy | 
-| ---|  
-|![](/gif/acrobot/dqn/epsilon_greedy.gif) | ![](/gif/acrobot/ddqn/epsilon_greedy.gif) | ![](/gif/acrobot/dueling_dqn/epsilon_greedy.gif) |
+| Random |DQN (count-based) | DDQN (count-based) | Dueling DQN (count-based) |   
+|--- | ---| --- | --- | 
+|![](/gif/acrobot/random/random.gif)|![](/gif/acrobot/dqn/count_based.gif) | ![](/gif/acrobot/ddqn/count_based.gif) | ![](/gif/acrobot/dueling_dqn/count_based.gif) |
+|--- | ---| --- | --- | 
+| Random |DQN (epsilon-greedy) | DDQN (epsilon-greedy) | Dueling DQN (epsilon-greedy) |    
+|![](/gif/acrobot/random/random.gif)|![](/gif/acrobot/dqn/epsilon_greedy.gif) | ![](/gif/acrobot/ddqn/epsilon_greedy.gif) | ![](/gif/acrobot/dueling_dqn/epsilon_greedy.gif) |
+
 
 
 
