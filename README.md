@@ -198,10 +198,10 @@ Here is the simulation with the model of SEED 77 on 10 instances of the environm
 
 | Random |DQN (count-based) | DDQN (count-based) | Dueling DQN (count-based) |   
 |--- | ---| --- | --- | 
-|![](/gif/moutain/random/random.gif)|![](/gif/moutain/dqn/count_based.gif) | ![](/gif/moutain/ddqn/count_based.gif) | ![](/gif/moutain/dueling_dqn/count_based.gif) |
+|![](/gif/mountain/random/random.gif)|![](/gif/mountain/dqn/count_based.gif) | ![](/gif/mountain/ddqn/count_based.gif) | ![](/gif/mountain/dueling_dqn/count_based.gif) |
 |--- | ---| --- | --- | 
 | Random |DQN (epsilon-greedy) | DDQN (epsilon-greedy) | Dueling DQN (epsilon-greedy) |    
-|![](/gif/moutain/random/random.gif)|![](/gif/moutain/dqn/epsilon_greedy.gif) | ![](/gif/moutain/ddqn/epsilon_greedy.gif) | ![](/gif/moutain/dueling_dqn/epsilon_greedy.gif) |
+|![](/gif/mountain/random/random.gif)|![](/gif/mountain/dqn/epsilon_greedy.gif) | ![](/gif/mountain/ddqn/epsilon_greedy.gif) | ![](/gif/mountain/dueling_dqn/epsilon_greedy.gif) |
 
 Only the Dueling DQN with count-based exploration doesn't solve the environment. 
 
@@ -211,7 +211,7 @@ Here are the average rewards on 10 instance of the environment
 
 | Mean rewards | 
 | --- | 
-| ![](images/mean_moutain.png)|
+| ![](images/mean_mountain.png)|
 
 
 
