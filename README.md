@@ -54,6 +54,7 @@ Once we have discretize the continuous states, we use a dictionnary to count the
 - `models` : The models parameters 
 - `notebooks` : The notebooks used during the project
 - `python` : The python files used (like the architectures of the models)
+- `report` : The directory where the final report is 
 - `requirements.txt` : The version of the library used
 - `results` : The results of the training 
 - `zip` : A zip file where the `gif`, `models`, `python` and `results` are compressed to be used in a notebook
